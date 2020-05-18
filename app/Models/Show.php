@@ -9,6 +9,9 @@ class Show extends BaseModel
 
     //=== RELATIONSHIPS ===//
 
+//            $table->string('name');
+//            $table->date('release_date')->nullable();
+
     //=== ATTRIBUTES ===//
 
     //=== SCOPES ===//

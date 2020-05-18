@@ -8,6 +8,9 @@ class Book extends BaseModel
     //protected $casts = [];
 
     //=== RELATIONSHIPS ===//
+//            $table->string('title');
+//            $table->string('author');
+//            $table->date('publication_date')->nullable();
 
     //=== ATTRIBUTES ===//
 

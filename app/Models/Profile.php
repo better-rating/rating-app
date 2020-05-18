@@ -8,6 +8,9 @@ class Profile extends BaseModel
     //protected $casts = [];
 
     //=== RELATIONSHIPS ===//
+//            $table->integer('user_id');
+//            $table->string('name');
+//            $table->string('media_type');
 
     //=== ATTRIBUTES ===//
 

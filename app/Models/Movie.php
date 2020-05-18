@@ -8,6 +8,8 @@ class Movie extends BaseModel
     //protected $casts = [];
 
     //=== RELATIONSHIPS ===//
+//            $table->string('name');
+//            $table->date('release_date')->nullable();
 
     //=== ATTRIBUTES ===//
 

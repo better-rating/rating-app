@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+/**
+ * Class Profile
+ * @package App\Models
+ *
+ * @table profiles
+ * @col user_id integer
+ * @col name string
+ * @col media_type string
+ */
 class Profile extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
-
     //=== RELATIONSHIPS ===//
-//            $table->integer('user_id');
-//            $table->string('name');
-//            $table->string('media_type');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     //=== ATTRIBUTES ===//
 

@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+/**
+ * Class Link
+ * @package App\Models
+ *
+ * @table links
+ * @col media_id integer
+ * @col media_type string
+ * @col url string
+ */
 class Link extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
-
     //=== RELATIONSHIPS ===//
-//            $table->integer('media_id');
-//            $table->string('media_type');
-//            $table->string('url');
+    public function media()
+    {
+        return $this->morphTo();
+    }
 
     //=== ATTRIBUTES ===//
 

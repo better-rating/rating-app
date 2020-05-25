@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
+/**
+ * Class RatingPartial
+ * @package App\Models
+ *
+ * @table rating_partials
+ * @col user_id integer
+ * @col name string
+ * @col description string
+ * @col possible_score integer
+ * @col labels string
+ */
 class RatingPartial extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
-
     //=== RELATIONSHIPS ===//
-//            $table->integer('user_id');
-//            $table->string('name');
-//            $table->string('description')->nullable();
-//            $table->integer('possible_score');
-//            $table->string('labels')->nullable();
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     //=== ATTRIBUTES ===//
 

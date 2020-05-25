@@ -2,18 +2,31 @@
 
 namespace App\Models;
 
+/**
+ * Class Rating
+ * @package App\Models
+ *
+ * @table ratings
+ * @col user_id integer
+ * @col media_id integer
+ * @col media_type string
+ * @col score integer
+ * @col possible_score integer
+ * @col score_as_percent integer
+ */
 class Rating extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
-
     //=== RELATIONSHIPS ===//
-//            $table->integer('user_id');
-//            $table->integer('media_id');
-//            $table->string('media_type');
-//            $table->integer('score');
-//            $table->integer('possible_score');
-//            $table->integer('score_as_percent');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function media()
+    {
+        return $this->morphTo();
+    }
+
     //=== ATTRIBUTES ===//
 
     //=== SCOPES ===//

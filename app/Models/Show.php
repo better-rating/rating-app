@@ -2,15 +2,35 @@
 
 namespace App\Models;
 
+/**
+ * Class Show
+ * @package App\Models
+ *
+ * @table shows
+ * @col name string
+ * @col release_date date
+ */
 class Show extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
+    protected $dates = [
+        'release_date'
+    ];
 
     //=== RELATIONSHIPS ===//
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class);
+    }
 
-//            $table->string('name');
-//            $table->date('release_date')->nullable();
+    public function rating()
+    {
+        return $this->morphOne(Rating::class, 'media');
+    }
+
+    public function links()
+    {
+        return $this->morphMany(Link::class, 'media');
+    }
 
     //=== ATTRIBUTES ===//
 

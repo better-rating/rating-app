@@ -2,10 +2,21 @@
 
 namespace App\Models;
 
+/**
+ * Class Episode
+ * @package App\Models
+ *
+ * @table episodes
+ * @col title string
+ * @col show_id integer
+ * @col season_number integer
+ * @col episode_number integer
+ */
 class Episode extends BaseModel
 {
-    //protected $table = '';
-    //protected $casts = [];
+    protected $dates = [
+        'release_date'
+    ];
 
     //=== RELATIONSHIPS ===//
     public function show()
@@ -13,10 +24,15 @@ class Episode extends BaseModel
         return $this->belongsTo(Show::class);
     }
 
-//            $table->string('title');
-//            $table->integer('show_id');
-//            $table->integer('season_number');
-//            $table->integer('episode_number');
+    public function rating()
+    {
+        return $this->morphOne(Rating::class, 'media');
+    }
+
+    public function links()
+    {
+        return $this->morphMany(Link::class, 'media');
+    }
 
     //=== ATTRIBUTES ===//
 

@@ -19,6 +19,7 @@ class CreateEpisodesTable extends Migration
             $table->integer('show_id');
             $table->integer('season_number');
             $table->integer('episode_number');
+            $table->date('release_date')->nullable();
             $table->timestamps();
         });
     }

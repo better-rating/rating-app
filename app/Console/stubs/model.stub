@@ -2,6 +2,13 @@
 
 namespace DummyNamespace\Models;
 
+/**
+ * Class DummyClass
+ * @package App\Models
+ *
+ * @table
+ * @col
+ */
 class DummyClass extends BaseModel
 {
     //protected $table = '';

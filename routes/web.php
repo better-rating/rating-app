@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+ |-----------------------------------------------------------------|
+ | Actions Handled By Resource Controller                          |
+ |-----------------------------------------------------------------|
+ | VERB       |  URI                  | ACTION   |  ROUTE NAME     |
+ | -----------|-----------------------|----------|-----------------|
+ | GET        | /photos               |  index   |  photos.index   |
+ | GET        | /photos/create        |  create  |  photos.create  |
+ | POST       | /photos               |  store   |  photos.store   |
+ | GET        | /photos/{photo}       |  show    |  photos.show    |
+ | GET        | /photos/{photo}/edit  |  edit    |  photos.edit    |
+ | PUT/PATCH  | /photos/{photo}       |  update  |  photos.update  |
+ | DELETE     | /photos/{photo}       |  destroy |  photos.destroy |
+ |-----------------------------------------------------------------|
+ */
+
+Route::resource('ratings', 'RatingController');
+Route::resource('rating-partials', 'RatingPartialController')->except('show');
+
+Route::get('/home', 'HomeController@index')->name('home');
+

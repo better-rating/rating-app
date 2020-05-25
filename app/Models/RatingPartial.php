@@ -15,6 +15,10 @@ namespace App\Models;
  */
 class RatingPartial extends BaseModel
 {
+    protected $casts = [
+        'labels' => 'array'
+    ];
+
     //=== RELATIONSHIPS ===//
     public function user()
     {

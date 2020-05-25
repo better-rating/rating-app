@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Models\Book;
 use App\Models\Episode;
 use App\Models\Movie;
+use App\Models\RatingPartial;
 use App\Models\Show;
+use App\Observers\RatingPartialObserver;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
             'show'    => Show::class,
             'episode' => Episode::class
         ]);
+
+        RatingPartial::observe(RatingPartialObserver::class);
     }
 }

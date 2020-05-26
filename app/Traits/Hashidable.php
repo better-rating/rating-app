@@ -11,16 +11,8 @@ trait Hashidable
         return Hashids::connection(get_called_class())->encode($this->getKey());
     }
 
-    private function getModel($model, $routeKey)
-    {
-        $id = Hashids::connection($model)->decode($routeKey)[0] ?? null;
-        $modelInstance = resolve($model);
-
-        return $modelInstance->findOrFail($id);
-    }
-
     public function getHashidAttribute()
     {
-        return Hashids::encode($this->attributes['id']);
+        return Hashids::connection(get_called_class())->encode($this->attributes['id']);
     }
 }

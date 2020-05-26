@@ -19,7 +19,7 @@
 <script>
     export default {
         props: {
-            rating: {
+            ratingpartial: {
                 type: Object,
                 default() {
                     return {
@@ -33,10 +33,10 @@
         },
         data() {
             return {
-                name: this.rating.name,
-                description: this.rating.description,
-                possible_score: this.rating.possible_score,
-                labels: this.rating.labels,
+                name: this.ratingpartial.name,
+                description: this.ratingpartial.description,
+                possible_score: this.ratingpartial.possible_score,
+                labels: this.ratingpartial.labels,
             }
         },
         methods: {

@@ -9,7 +9,9 @@ class RatingPartialController extends Controller
 {
     public function index()
     {
-        return view('rating-partials.index');
+        $ratingPartials = RatingPartial::paginate(25);
+
+        return view('rating-partials.index', compact('ratingPartials'));
     }
 
     public function create()
@@ -26,10 +28,9 @@ class RatingPartialController extends Controller
         echo json_encode(['success' => true]);
     }
 
-    public function edit($id)
+    public function edit(RatingPartial $ratingPartial)
     {
-        
-        return view('rating-partials.create');
+        return view('rating-partials.edit', compact('ratingPartial'));
     }
 
     public function update(Request $request, $id)

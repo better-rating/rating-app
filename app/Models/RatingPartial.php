@@ -30,6 +30,15 @@ class RatingPartial extends BaseModel
     }
 
     //=== ATTRIBUTES ===//
+    public function getSimpleLabelsAttribute()
+    {
+        $result = '';
+        foreach ($this->labels as $label) {
+            $result .= "{$label}/";
+        }
+        return trim($result, '/');
+    }
+
 
     //=== SCOPES ===//
 

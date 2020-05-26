@@ -28,6 +28,7 @@ class RatingPartialController extends Controller
 
     public function edit($id)
     {
+        
         return view('rating-partials.create');
     }
 

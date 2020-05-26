@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Hashidable;
+
 /**
  * Class RatingPartial
  * @package App\Models
@@ -15,6 +17,8 @@ namespace App\Models;
  */
 class RatingPartial extends BaseModel
 {
+    use Hashidable;
+
     protected $casts = [
         'labels' => 'array'
     ];

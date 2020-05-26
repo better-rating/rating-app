@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Hashidable;
+
 /**
  * Class Rating
  * @package App\Models
@@ -16,6 +18,8 @@ namespace App\Models;
  */
 class Rating extends BaseModel
 {
+    use Hashidable;
+
     //=== RELATIONSHIPS ===//
     public function user()
     {

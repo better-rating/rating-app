@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Hashidable;
+
 /**
  * Class Profile
  * @package App\Models
@@ -13,6 +15,8 @@ namespace App\Models;
  */
 class Profile extends BaseModel
 {
+    use Hashidable;
+
     //=== RELATIONSHIPS ===//
     public function user()
     {

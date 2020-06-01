@@ -29,6 +29,11 @@ class RatingPartial extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class);
+    }
+
     //=== ATTRIBUTES ===//
     public function getSimpleLabelsAttribute()
     {

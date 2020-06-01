@@ -23,6 +23,11 @@ class Profile extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function rating_partials()
+    {
+        return $this->belongsToMany(RatingPartial::class);
+    }
+
     //=== ATTRIBUTES ===//
 
     //=== SCOPES ===//

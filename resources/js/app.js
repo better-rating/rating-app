@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+import 'vue-search-select/dist/VueSearchSelect.css'
+
 window.Vue = require('vue');
 
 Vue.config.devtools = true;
@@ -22,6 +24,7 @@ Vue.config.devtools = true;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('rating-partial-form', require('./components/rating-partials/form').default);
+Vue.component('profile-form', require('./components/profiles/form').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

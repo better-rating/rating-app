@@ -36,8 +36,11 @@ Route::get('/', function () {
  |-----------------------------------------------------------------|
  */
 
-Route::resource('ratings', 'RatingController');
-Route::resource('rating-partials', 'RatingPartialController')->except('show');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('ratings', 'RatingController');
+    Route::resource('rating-partials', 'RatingPartialController')->except('show');
+    Route::resource('profiles', 'ProfileController');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 

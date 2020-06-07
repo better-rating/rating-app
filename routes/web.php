@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,10 +39,26 @@ Route::get('/', function () {
  */
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('ratings', 'RatingController');
+    Route::resource('ratings', 'RatingController')->except('create');
+    Route::get('ratings/create/{media_type}/{media_id}', [RatingController::class, 'create'])->name('ratings.create');
     Route::resource('rating-partials', 'RatingPartialController')->except('show');
     Route::resource('profiles', 'ProfileController');
+
+    Route::get('/profiles/list/{media_type}', [ProfileController::class, 'list']);
+//    Route::resource('reviews', 'ReviewController');
+
+    Route::resource('movies', 'MovieController');
+//    Route::resource('profiles', 'ProfileController');
+//    Route::resource('profiles', 'ProfileController');
+//    Route::resource('profiles', 'ProfileController');
+//    Route::resource('profiles', 'ProfileController');
 });
+
+Route::get('/book/{book}', [MediaController::class, 'book']);
+Route::get('/movie/{movie}', [MediaController::class, 'movie']);
+Route::get('/show/{show}', [MediaController::class, 'show']);
+Route::get('/show/{show}/season/{season}', [MediaController::class, 'season']);
+Route::get('/show/{show}/season/{season}/episode/{episode}', [MediaController::class, 'episode']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

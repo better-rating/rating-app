@@ -9,6 +9,7 @@
  * @see https://github.com/vinkla/laravel-hashids
  */
 
+use App\Models\Movie;
 use App\Models\RatingPartial;
 use App\Models\Profile;
 use App\Models\Rating;
@@ -67,7 +68,7 @@ return [
         User::class => [
             'salt' => User::class.env('HASH_SALT', ''),
             'length' => 5,
-        ],
+        ]
     ],
 
 ];

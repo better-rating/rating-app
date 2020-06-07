@@ -6,32 +6,20 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * Class Book
+ * Class Season
  * @package App\Models
  *
- * @table books
- * @col title string
- * @col author string
- * @col publication_date date
+ * @table
+ * @col
  */
-class Book extends BaseModel
+class Season extends BaseModel
 {
     use HasSlug;
 
-    protected $dates = [
-        'publication_date',
-    ];
+    //protected $table = '';
+    //protected $casts = [];
 
     //=== RELATIONSHIPS ===//
-    public function rating()
-    {
-        return $this->morphOne(Rating::class, 'media');
-    }
-
-    public function links()
-    {
-        return $this->morphMany(Link::class, 'media');
-    }
 
     //=== ATTRIBUTES ===//
 

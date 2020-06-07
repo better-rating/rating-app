@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\Hashidable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 /**
  * Class Movie
  * @package App\Models
@@ -12,6 +16,9 @@ namespace App\Models;
  */
 class Movie extends BaseModel
 {
+    use HasSlug;
+    use Hashidable;
+
     protected $dates = [
         'release_date'
     ];
@@ -31,4 +38,11 @@ class Movie extends BaseModel
 
     //=== SCOPES ===//
 
+    //=== METHODS ===//
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 }

@@ -15,4 +15,10 @@ trait Hashidable
     {
         return Hashids::connection(get_called_class())->encode($this->attributes['id']);
     }
+
+    public static function findViaHash($hash)
+    {
+        $id = Hashids::connection(get_called_class())->decode($hash)[0] ?? null;
+        return self::findOrFail($id);
+    }
 }

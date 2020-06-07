@@ -25,6 +25,10 @@ Vue.config.devtools = true;
 
 Vue.component('rating-partial-form', require('./components/rating-partials/form').default);
 Vue.component('profile-form', require('./components/profiles/form').default);
+Vue.component('rating-form', require('./components/ratings/form').default);
+Vue.component('rating-partial', require('./components/ratings/partials/rating-partial').default);
+Vue.component('star', require('./components/ratings/partials/star').default);
+Vue.component('star-rating', require('./components/ratings/partials/star-rating').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

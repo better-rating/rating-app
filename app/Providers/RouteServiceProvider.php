@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Book;
+use App\Models\Episode;
+use App\Models\Movie;
 use App\Models\Profile;
 use App\Models\Rating;
 use App\Models\RatingPartial;
+use App\Models\Season;
+use App\Models\Show;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -38,16 +43,31 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::bind('user', function ($value, $route) {
-            return $this->getModel(User::class, $value);
+            return $this->getModel(User::class, $value, 'hashid');
         });
         Route::bind('rating-partial', function ($value, $route) {
-            return $this->getModel(RatingPartial::class, $value);
+            return $this->getModel(RatingPartial::class, $value, 'hashid');
         });
         Route::bind('rating', function ($value, $route) {
-            return $this->getModel(Rating::class, $value);
+            return $this->getModel(Rating::class, $value, 'hashid');
         });
         Route::bind('profile', function ($value, $route) {
-            return $this->getModel(Profile::class, $value);
+            return $this->getModel(Profile::class, $value, 'hashid');
+        });
+        Route::bind('book', function ($value, $route) {
+            return $this->getModel(Book::class, $value, 'slug');
+        });
+        Route::bind('movie', function ($value, $route) {
+            return $this->getModel(Movie::class, $value, 'slug');
+        });
+        Route::bind('show', function ($value, $route) {
+            return $this->getModel(Show::class, $value, 'slug');
+        });
+        Route::bind('season', function ($value, $route) {
+            return $this->getModel(Season::class, $value, 'slug');
+        });
+        Route::bind('episode', function ($value, $route) {
+            return $this->getModel(Episode::class, $value, 'slug');
         });
     }
 
@@ -61,6 +81,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        Route::prefix('data')
+             ->middleware(['web','auth'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/data.php'));
 
         //
     }
@@ -94,11 +119,21 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/api.php'));
     }
 
-    private function getModel($model, $routeKey)
+    private function getModel($model, $routeKey, $type)
     {
-        $id = Hashids::connection($model)->decode($routeKey)[0] ?? null;
         $modelInstance = resolve($model);
 
-        return $modelInstance->findOrFail($id);
+        if ($type === 'hashid') {
+            $id = Hashids::connection($model)->decode($routeKey)[0] ?? null;
+            return $modelInstance->findOrFail($id);
+        }
+        if ($type === 'slug') {
+            return $modelInstance->where('slug', $routeKey)->firstOrFail();
+        }
+        if ($type === 'id') {
+            return $modelInstance->findOrFail($routeKey);
+        }
+
+
     }
 }

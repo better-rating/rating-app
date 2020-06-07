@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
 /**
  * Class Episode
  * @package App\Models
@@ -14,6 +17,8 @@ namespace App\Models;
  */
 class Episode extends BaseModel
 {
+    use HasSlug;
+
     protected $dates = [
         'release_date'
     ];
@@ -38,4 +43,11 @@ class Episode extends BaseModel
 
     //=== SCOPES ===//
 
+    //=== METHODS ===//
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 }

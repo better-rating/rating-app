@@ -4,13 +4,14 @@
             <label for="name">Name:</label> <input type="text" id="name" v-model="name">
         </div>
         <div>
-            <label for="media_type">Media Type:</label> <select name="media_type" id="media_type" v-model="media_type">
-            <option value="">---</option>
-            <option value="book">Book</option>
-            <option value="movie"> Movie</option>
-            <option value="show">TV Show</option>
-            <option value="episode"> TV Episode</option>
-        </select>
+            <label for="media_type">Media Type:</label>
+            <select name="media_type" id="media_type" v-model="media_type">
+                <option value="">---</option>
+                <option value="book">Book</option>
+                <option value="movie"> Movie</option>
+                <option value="show">TV Show</option>
+                <option value="episode"> TV Episode</option>
+            </select>
         </div>
         <div>
             <table>
@@ -94,7 +95,7 @@
                     }),
                 }).then(res => {
                     if (res.data.success) {
-                        window.location.href = '/profiles/'+res.data.id;
+                        window.location.href = '/profiles/' + res.data.id;
                     }
                 });
             },

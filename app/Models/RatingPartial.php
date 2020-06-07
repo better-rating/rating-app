@@ -19,6 +19,9 @@ class RatingPartial extends BaseModel
 {
     use Hashidable;
 
+    protected $appends = [
+        'hashid'
+    ];
     protected $casts = [
         'labels' => 'array'
     ];

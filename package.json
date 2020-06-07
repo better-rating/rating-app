@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "vue-search-select": "^2.9.3"
+        "vue-search-select": "^2.9.3",
+        "vue-star-rating": "^1.6.1"
     }
 }

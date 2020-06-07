@@ -27,7 +27,7 @@ class ProfileController extends Controller
         $data = $request->all();
 
         $profile = Profile::create([
-            'name' => $data['name'],
+            'name'       => $data['name'],
             'media_type' => $data['media_type'],
         ]);
 
@@ -59,5 +59,29 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //=== DATA ===//
+    public function list($media_type)
+    {
+        $profiles = Profile::where('media_type', $media_type)
+                           ->where('user_id', auth()->user()->id)
+                           ->get()
+                           ->map(static function ($profile) {
+                               return [
+                                   //pre-format for vue
+                                   'value'   => $profile->hashid,
+                                   'text' => $profile->name,
+                               ];
+                           });
+
+        return $profiles->toJson();
+    }
+
+    public function fetch(Profile $profile)
+    {
+        $profile->load('rating_partials');
+
+        return $profile->toJson();
     }
 }

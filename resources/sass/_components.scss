@@ -1,0 +1,19 @@
+.btn {
+    @apply text-white font-bold py-2 px-4 rounded;
+}
+
+.btn-yellow {
+    @apply bg-yellow-500;
+}
+
+.btn-yellow:hover {
+   @apply  bg-yellow-700;
+}
+
+.btn-blue {
+    @apply bg-blue-500;
+}
+
+.btn-blue:hover {
+   @apply  bg-blue-700;
+}

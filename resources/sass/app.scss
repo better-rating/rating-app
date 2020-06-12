@@ -1,8 +1,14 @@
+//noinspection CssInvalidAtRule
+@tailwind base;
+//noinspection CssInvalidAtRule
+@tailwind components;
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'components';
+
+//noinspection CssInvalidAtRule
+@tailwind utilities;

@@ -1,7 +1,7 @@
-//noinspection CssInvalidAtRule
-@tailwind base;
-//noinspection CssInvalidAtRule
-@tailwind components;
+////noinspection CssInvalidAtRule
+//@tailwind base;
+////noinspection CssInvalidAtRule
+//@tailwind components;
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -10,5 +10,7 @@
 
 @import 'components';
 
+@import 'layout';
+
 //noinspection CssInvalidAtRule
-@tailwind utilities;
+//@tailwind utilities;

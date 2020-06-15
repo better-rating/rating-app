@@ -1,9 +1,9 @@
 <template>
-    <div id="profile-form">
-        <div>
+    <div id="profile-form" class="">
+        <div class="form-control">
             <label for="name">Name:</label> <input type="text" id="name" v-model="name">
         </div>
-        <div>
+        <div class="form-control">
             <label for="media_type">Media Type:</label>
             <select name="media_type" id="media_type" v-model="media_type">
                 <option value="">---</option>

@@ -14,10 +14,10 @@ Vue.config.devtools = true;
 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faVials } from '@fortawesome/free-solid-svg-icons';
+import { faVials, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faVials);
+library.add(faVials,faFilm);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -1,0 +1,44 @@
+table {
+    @apply my-4;
+
+    th {
+        @apply bg-gray-300;
+    }
+
+    th,td {
+       @apply px-8 py-4;
+    }
+
+    &.rounded-corners {
+        tr:first-child {
+            th:first-child,
+            td:first-child {
+                @apply rounded-tl-lg;
+            }
+            th:last-child,
+            td:last-child {
+                @apply rounded-tr-lg;
+            }
+        }
+
+        tr:last-child {
+            td:first-child {
+                @apply rounded-bl-lg;
+            }
+            td:last-child {
+                @apply rounded-br-lg;
+            }
+        }
+    }
+
+    &.bordered {
+        @apply border-separate;
+        border-spacing: 0;
+        td:first-child {
+            @apply border-l;
+        }
+        th,td {
+            @apply border-r border-b border-solid border-gray-300;
+        }
+    }
+}

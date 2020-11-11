@@ -1,11 +1,11 @@
 <template>
     <div id="profile-form" class="">
-        <div class="form-control">
+        <div class="form-control mb-2">
             <label for="name">Name:</label> <input type="text" id="name" v-model="name">
         </div>
-        <div class="form-control">
+        <div class="form-control mb-2">
             <label for="media_type">Media Type:</label>
-            <select name="media_type" id="media_type" v-model="media_type">
+            <select class="w-64 inline-block" name="media_type" id="media_type" v-model="media_type">
                 <option value="">---</option>
                 <option value="book">Book</option>
                 <option value="movie"> Movie</option>
@@ -13,12 +13,12 @@
                 <option value="episode"> TV Episode</option>
             </select>
         </div>
-        <div>
-            <table>
+        <div class="mb-2" v-if="rating_partials.length">
+            <table class="bordered rounded-corners">
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Score</th>
+                    <th>Points</th>
                     <th>Remove</th>
                 </tr>
                 <tr v-for="partial in rating_partials">
@@ -31,17 +31,17 @@
                 </tr>
             </table>
         </div>
-        <div>
+        <div class="mb-2">
             <multi-select
                 :options="searchablePartials"
                 :selected-options="selectedPartials"
-                placeholder="select item"
+                placeholder="Add Partials"
                 :hideSelectedOptions="true"
                 @select="onSelect">
             </multi-select>
         </div>
 
-        <button @click="save">Create</button>
+        <button class="btn btn-blue" @click="save">Create</button>
     </div>
 </template>
 

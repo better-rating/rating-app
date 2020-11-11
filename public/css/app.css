@@ -21731,6 +21731,105 @@ main {
   float: right;
 }
 
+textarea, input {
+  border-width: 1px;
+  border-style: solid;
+  --border-opacity: 1;
+  border-color: #e2e8f0;
+  border-color: rgba(226, 232, 240, var(--border-opacity));
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+select {
+  display: block;
+  width: 100%;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #e2e8f0;
+  border-color: rgba(226, 232, 240, var(--border-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 2rem;
+  border-radius: 0.25rem;
+  line-height: 1.25;
+}
+
+select:hover {
+  --border-opacity: 1;
+  border-color: #a0aec0;
+  border-color: rgba(160, 174, 192, var(--border-opacity));
+}
+
+select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+label {
+  margin-right: 0.5rem;
+}
+
+table {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+table th {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+
+table th, table td {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+table.rounded-corners tr:first-child th:first-child,
+table.rounded-corners tr:first-child td:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+table.rounded-corners tr:first-child th:last-child,
+table.rounded-corners tr:first-child td:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+table.rounded-corners tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem;
+}
+
+table.rounded-corners tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem;
+}
+
+table.bordered {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table.bordered td:first-child {
+  border-left-width: 1px;
+}
+
+table.bordered th, table.bordered td {
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  --border-opacity: 1;
+  border-color: #e2e8f0;
+  border-color: rgba(226, 232, 240, var(--border-opacity));
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;

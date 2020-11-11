@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto">
         <div class="grid grid-cols-4 auto-rows-min">
-            <div class="font-bold col-span-1 h-8 text-white bg-gray-700 rounded-tl">Name</div>
+            <div class="font-bold col-span-1 h-8 pl-2 text-white bg-gray-700 rounded-tl">Name</div>
             <div class="font-bold col-span-1 h-8 text-white bg-gray-700">Release Date</div>
             <div class="font-bold col-span-1 h-8 text-white bg-gray-700">Rating</div>
             <div class="font-bold col-span-1 h-8 text-white bg-gray-700 rounded-tr">Rated On</div>

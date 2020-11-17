@@ -1,29 +1,35 @@
 #app {
     display: grid;
     grid-template-columns: 250px 1fr;
-    grid-template-rows: 75px 1fr;
+    grid-template-rows: 100px 1fr;
     grid-template-areas:
-    "side top"
+    "logo top"
     "side main";
 }
 #topbar {
     grid-area: top;
-    background-color: red;
+    background-color: #585858;
+}
+
+#logo {
+    grid-area: logo;
+    background-color: #585858;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 90px;
+    padding-left: 1rem;
 }
 
 #sidebar {
     grid-area: side;
     height: 100vh;
     width: 100%;
-    background-color: #333;
-    .logo {
-        height: 75px;
-        width: 100%;
-        background-color: green;
-    }
+    background-color: #c5c5c5;
+
     .nav li {
         line-height: 40px;
-        color: #ffffff;
+        color: #000000;
         svg {
             width: 25%;
         }
@@ -34,7 +40,7 @@
         }
         &:hover {
             svg,a{
-                color: #ddd;
+                color: #555;
             }
         }
     }

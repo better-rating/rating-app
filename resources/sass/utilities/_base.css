@@ -1,0 +1,61 @@
+/*.headings {*/
+/*    @apply mb-4 font-bold;*/
+/*}*/
+/*h1 {*/
+/*    @apply headings text-5xl;*/
+/*}*/
+
+/*h2 {*/
+/*    @apply headings text-4xl;*/
+/*}*/
+
+/*h3 {*/
+/*    @apply headings text-3xl;*/
+/*}*/
+
+/*h4 {*/
+/*    @apply headings text-2xl;*/
+/*}*/
+
+/*h5 {*/
+/*    @apply headings text-xl;*/
+/*}*/
+
+/*h6 {*/
+/*    @apply headings text-lg;*/
+/*}*/
+
+/*a {*/
+/*    @apply text-blue-600 underline;*/
+/*}*/
+
+/*p {*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*ol, ul {*/
+/*    @apply pl-12 my-4;*/
+/*    & ol, ul {*/
+/*        @apply my-0;*/
+/*    }*/
+
+/*    > li {*/
+/*        @apply pl-1;*/
+/*    }*/
+/*}*/
+
+/*ol {*/
+/*    list-style-type: decimal;*/
+/*}*/
+
+/*ul {*/
+/*    list-style-type: disc;*/
+
+/*    &.unlist {*/
+/*        list-style-type: none;*/
+/*        @apply pl-0 my-0;*/
+/*        > li {*/
+/*            @apply pl-1;*/
+/*        }*/
+/*    }*/
+/*}*/

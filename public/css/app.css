@@ -653,31 +653,35 @@ video {
 #app {
   display: grid;
   grid-template-columns: 250px 1fr;
-  grid-template-rows: 75px 1fr;
-  grid-template-areas: "side top" "side main";
+  grid-template-rows: 100px 1fr;
+  grid-template-areas: "logo top" "side main";
 }
 
 #topbar {
   grid-area: top;
-  background-color: red;
+  background-color: #585858;
+}
+
+#logo {
+  grid-area: logo;
+  background-color: #585858;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 90px;
+  padding-left: 1rem;
 }
 
 #sidebar {
   grid-area: side;
   height: 100vh;
   width: 100%;
-  background-color: #333;
-}
-
-#sidebar .logo {
-  height: 75px;
-  width: 100%;
-  background-color: green;
+  background-color: #c5c5c5;
 }
 
 #sidebar .nav li {
   line-height: 40px;
-  color: #ffffff;
+  color: #000000;
 }
 
 #sidebar .nav li svg {
@@ -691,7 +695,7 @@ video {
 }
 
 #sidebar .nav li:hover svg, #sidebar .nav li:hover a {
-  color: #ddd;
+  color: #555;
 }
 
 main {
@@ -21726,6 +21730,104 @@ main {
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
 }
+
+/*.headings {*/
+
+/*    @apply mb-4 font-bold;*/
+
+/*}*/
+
+/*h1 {*/
+
+/*    @apply headings text-5xl;*/
+
+/*}*/
+
+/*h2 {*/
+
+/*    @apply headings text-4xl;*/
+
+/*}*/
+
+/*h3 {*/
+
+/*    @apply headings text-3xl;*/
+
+/*}*/
+
+/*h4 {*/
+
+/*    @apply headings text-2xl;*/
+
+/*}*/
+
+/*h5 {*/
+
+/*    @apply headings text-xl;*/
+
+/*}*/
+
+/*h6 {*/
+
+/*    @apply headings text-lg;*/
+
+/*}*/
+
+/*a {*/
+
+/*    @apply text-blue-600 underline;*/
+
+/*}*/
+
+/*p {*/
+
+/*    margin-bottom: 1rem;*/
+
+/*}*/
+
+/*ol, ul {*/
+
+/*    @apply pl-12 my-4;*/
+
+/*    & ol, ul {*/
+
+/*        @apply my-0;*/
+
+/*    }*/
+
+/*    > li {*/
+
+/*        @apply pl-1;*/
+
+/*    }*/
+
+/*}*/
+
+/*ol {*/
+
+/*    list-style-type: decimal;*/
+
+/*}*/
+
+/*ul {*/
+
+/*    list-style-type: disc;*/
+
+/*    &.unlist {*/
+
+/*        list-style-type: none;*/
+
+/*        @apply pl-0 my-0;*/
+
+/*        > li {*/
+
+/*            @apply pl-1;*/
+
+/*        }*/
+
+/*    }*/
+
+/*}*/
 
 .pull-right {
   float: right;

@@ -1,18 +1,24 @@
 <template>
     <div id="rating-partial-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" v-model="name">
-        <label for="description">Description:</label>
-        <textarea id="description" v-model="description"></textarea>
-        <label for="possible_score">Total Possible Score:</label>
-        <input type="number" id="possible_score" v-model="possible_score">
-        <div>
-            <h4>Optional Labels</h4>
+        <div class="mb-2">
+            <label class="inline-block w-48 font-bold" for="name">Name:</label>
+            <input class="w-64" type="text" id="name" v-model="name">
+        </div>
+        <div class="mb-2">
+            <label class="inline-block w-48 font-bold" for="description">Description:</label>
+            <textarea class="w-64" id="description" v-model="description"></textarea>
+        </div>
+        <div class="mb-2">
+            <label class="inline-block w-48 font-bold" for="possible_score">Total Possible Score:</label>
+            <input class="w-64" type="number" id="possible_score" v-model="possible_score">
+        </div>
+        <div v-if="Object.keys(labels).length > 0">
+            <div class="font-bold">Optional Labels</div>
             <div v-for="(label, index) in labels">
-                <label>{{index}}: <input type="text" v-model="labels[index]"></label>
+                <label class="w-8 inline-block">{{index}}:</label><input type="text" v-model="labels[index]">
             </div>
         </div>
-        <button @click="save">Create</button>
+        <button class="mt-8 btn btn-blue" @click="save">Create</button>
     </div>
 </template>
 
@@ -61,7 +67,6 @@
         watch: {
             possible_score: {
                 handler(newScore, oldScore) {
-                    console.log(this);
                     if (newScore > oldScore) {
                         for (let i = 0; i <= newScore; i++) {
                             if (!(i.toString() in this.labels)) {

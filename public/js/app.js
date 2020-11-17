@@ -12178,6 +12178,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     ratingpartial: {
@@ -12223,8 +12229,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     possible_score: {
       handler: function handler(newScore, oldScore) {
-        console.log(this);
-
         if (newScore > oldScore) {
           for (var i = 0; i <= newScore; i++) {
             if (!(i.toString() in this.labels)) {
@@ -49283,114 +49287,147 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "rating-partial-form" } }, [
-    _c("label", { attrs: { for: "name" } }, [_vm._v("Name:")]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.name,
-          expression: "name"
-        }
-      ],
-      attrs: { type: "text", id: "name" },
-      domProps: { value: _vm.name },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+    _c("div", { staticClass: "mb-2" }, [
+      _c(
+        "label",
+        { staticClass: "inline-block w-48 font-bold", attrs: { for: "name" } },
+        [_vm._v("Name:")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.name,
+            expression: "name"
           }
-          _vm.name = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("label", { attrs: { for: "description" } }, [_vm._v("Description:")]),
-    _vm._v(" "),
-    _c("textarea", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.description,
-          expression: "description"
-        }
-      ],
-      attrs: { id: "description" },
-      domProps: { value: _vm.description },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+        ],
+        staticClass: "w-64",
+        attrs: { type: "text", id: "name" },
+        domProps: { value: _vm.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.name = $event.target.value
           }
-          _vm.description = $event.target.value
         }
-      }
-    }),
-    _vm._v(" "),
-    _c("label", { attrs: { for: "possible_score" } }, [
-      _vm._v("Total Possible Score:")
+      })
     ]),
     _vm._v(" "),
-    _c("input", {
-      directives: [
+    _c("div", { staticClass: "mb-2" }, [
+      _c(
+        "label",
         {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.possible_score,
-          expression: "possible_score"
-        }
-      ],
-      attrs: { type: "number", id: "possible_score" },
-      domProps: { value: _vm.possible_score },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+          staticClass: "inline-block w-48 font-bold",
+          attrs: { for: "description" }
+        },
+        [_vm._v("Description:")]
+      ),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.description,
+            expression: "description"
           }
-          _vm.possible_score = $event.target.value
+        ],
+        staticClass: "w-64",
+        attrs: { id: "description" },
+        domProps: { value: _vm.description },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.description = $event.target.value
+          }
         }
-      }
-    }),
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-2" }, [
+      _c(
+        "label",
+        {
+          staticClass: "inline-block w-48 font-bold",
+          attrs: { for: "possible_score" }
+        },
+        [_vm._v("Total Possible Score:")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.possible_score,
+            expression: "possible_score"
+          }
+        ],
+        staticClass: "w-64",
+        attrs: { type: "number", id: "possible_score" },
+        domProps: { value: _vm.possible_score },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.possible_score = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    Object.keys(_vm.labels).length > 0
+      ? _c(
+          "div",
+          [
+            _c("div", { staticClass: "font-bold" }, [
+              _vm._v("Optional Labels")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.labels, function(label, index) {
+              return _c("div", [
+                _c("label", { staticClass: "w-8 inline-block" }, [
+                  _vm._v(_vm._s(index) + ":")
+                ]),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.labels[index],
+                      expression: "labels[index]"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.labels[index] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.labels, index, $event.target.value)
+                    }
+                  }
+                })
+              ])
+            })
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
-      "div",
-      [
-        _c("h4", [_vm._v("Optional Labels")]),
-        _vm._v(" "),
-        _vm._l(_vm.labels, function(label, index) {
-          return _c("div", [
-            _c("label", [
-              _vm._v(_vm._s(index) + ": "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.labels[index],
-                    expression: "labels[index]"
-                  }
-                ],
-                attrs: { type: "text" },
-                domProps: { value: _vm.labels[index] },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.labels, index, $event.target.value)
-                  }
-                }
-              })
-            ])
-          ])
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.save } }, [_vm._v("Create")])
+      "button",
+      { staticClass: "mt-8 btn btn-blue", on: { click: _vm.save } },
+      [_vm._v("Create")]
+    )
   ])
 }
 var staticRenderFns = []

@@ -21,6 +21,11 @@
 </head>
 <body>
 <div id="app">
+    <div id="logo">
+            <a href="{{ url('/') }}">
+            {{ config('app.name', 'Laravel') }}
+        </a>
+    </div>
     <div id="topbar" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
@@ -62,11 +67,6 @@
         </div>
     </div>
     <div id="sidebar">
-        <div class="logo">
-            <a href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-        </div>
         <ul class="nav">
             <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('movies.index')}}">Movies</a></li>
 {{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('shows.index')}}">Shows</a></li>--}}

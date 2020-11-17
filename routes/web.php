@@ -48,10 +48,10 @@ Route::group(['middleware' => ['auth']], function () {
 //    Route::resource('reviews', 'ReviewController');
 
     Route::resource('movies', 'MovieController');
-//    Route::resource('profiles', 'ProfileController');
-//    Route::resource('profiles', 'ProfileController');
-//    Route::resource('profiles', 'ProfileController');
-//    Route::resource('profiles', 'ProfileController');
+    Route::resource('books', 'BookController');
+    Route::resource('shows', 'ShowController');
+    Route::resource('seasons', 'SeasonController');
+    Route::resource('episodes', 'EpisodeController');
 });
 
 Route::get('/book/{book}', [MediaController::class, 'book']);

@@ -13,7 +13,10 @@
             <input class="w-64" type="number" id="possible_score" v-model="possible_score">
         </div>
         <div v-if="Object.keys(labels).length > 0">
-            <div class="font-bold">Optional Labels</div>
+            <div class="font-bold mb-2">
+                Optional Labels
+                <div class="text-sm font-light text-gray-700">Alternative labels to display instead of a number (eg. 0-no/1-yes, 0-poor/1-good/2-excellent)</div>
+            </div>
             <div v-for="(label, index) in labels">
                 <label class="w-8 inline-block">{{index}}:</label><input type="text" v-model="labels[index]">
             </div>

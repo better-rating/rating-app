@@ -12184,6 +12184,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     ratingpartial: {
@@ -49387,9 +49390,7 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("div", { staticClass: "font-bold" }, [
-              _vm._v("Optional Labels")
-            ]),
+            _vm._m(0),
             _vm._v(" "),
             _vm._l(_vm.labels, function(label, index) {
               return _c("div", [
@@ -49430,7 +49431,21 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "font-bold mb-2" }, [
+      _vm._v("\n            Optional Labels\n            "),
+      _c("div", { staticClass: "text-sm font-light text-gray-700" }, [
+        _vm._v(
+          "Alternative labels to display instead of a number (eg. 0-no/1-yes, 0-poor/1-good/2-excellent)"
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -67086,7 +67101,7 @@ Vue.config.devtools = true;
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faVials"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faFilm"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faStar"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faStarHalfAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faFilm"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faBook"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faTv"]);
 Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"]);
 /**
  * The following block of code may be used to automatically register your

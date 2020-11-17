@@ -68,13 +68,14 @@
     </div>
     <div id="sidebar">
         <ul class="nav">
-            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('movies.index')}}">Movies</a></li>
-{{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('shows.index')}}">Shows</a></li>--}}
-{{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('books.index')}}">Books</a></li>--}}
-{{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('seasons.index')}}">Seasons</a></li>--}}
-{{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('episodes.index')}}">Episodes</a></li>--}}
-            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('rating-partials.create')}}">Make Partial</a></li>
-            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="{{route('profiles.create')}}">Make Profile</a></li>
+            <li><font-awesome-icon icon="film"></font-awesome-icon><a href="{{route('movies.index')}}">Movies</a></li>
+            <li><font-awesome-icon icon="book"></font-awesome-icon><a href="{{route('books.index')}}">Books</a></li>
+            <li><font-awesome-icon icon="tv"></font-awesome-icon><a href="{{route('shows.index')}}">Shows</a></li>
+            <li><font-awesome-icon icon="tv"></font-awesome-icon><a href="{{route('seasons.index')}}">Seasons</a></li>
+            <li><font-awesome-icon icon="tv"></font-awesome-icon><a href="{{route('episodes.index')}}">Episodes</a></li>
+            <hr class="border-gray-900 m-3">
+            <li><font-awesome-icon icon="star-half-alt"></font-awesome-icon><a href="{{route('rating-partials.create')}}">Make Rating Partial</a></li>
+            <li><font-awesome-icon icon="star"></font-awesome-icon><a href="{{route('profiles.create')}}">Make Rating Profile</a></li>
 {{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="#"></a></li>--}}
 {{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="#"></a></li>--}}
 {{--            <li><font-awesome-icon icon="vials"></font-awesome-icon><a href="#"></a></li>--}}

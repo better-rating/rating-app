@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 //    Route::resource('reviews', 'ReviewController');
 
     Route::resource('movies', 'MovieController');
-    Route::resource('books', 'BookController');
+//    Route::resource('books', 'BookController');
     Route::resource('shows', 'ShowController');
     Route::resource('seasons', 'SeasonController');
     Route::resource('episodes', 'EpisodeController');

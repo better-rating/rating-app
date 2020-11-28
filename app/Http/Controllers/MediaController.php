@@ -7,15 +7,13 @@ use App\Models\Episode;
 use App\Models\Movie;
 use App\Models\Season;
 use App\Models\Show;
+use BetterRating\BookRatingPackage\Traits\BookMedia;
 use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-    public function book(Book $book)
-    {
+    use BookMedia;
 
-        return view('media.book', compact('book'));
-    }
     public function movie(Movie $movie)
     {
 

@@ -11,6 +11,11 @@
         {
             "type": "git",
             "url": "git@github.com:tbirrell/better-timestamps.git"
+        },
+        {
+            "type": "path",
+            "url": "./packages/BookRatingPackage",
+            "symlink": true
         }
     ],
     "require": {
@@ -25,7 +30,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "spatie/laravel-sluggable": "^2.4",
-        "vinkla/hashids": "^8.1"
+        "vinkla/hashids": "^8.1",
+        "better-rating/book-rating-package": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

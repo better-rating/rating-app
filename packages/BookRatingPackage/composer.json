@@ -1,0 +1,23 @@
+{
+    "name": "better-rating/book-rating-package",
+    "authors": [
+        {
+            "name": "Timothy Birrell",
+            "email": "tbirrell@xristos.net"
+        }
+    ],
+    "require": {},
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "BetterRating\\BookRatingPackage\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BetterRating\\BookRatingPackage\\BookServiceProvider"
+            ]
+        }
+    }
+}

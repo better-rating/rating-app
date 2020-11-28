@@ -1,26 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace BetterRating\BookRatingPackage\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Rating;
+use App\Models\Link;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-/**
- * Class Book
- * @package App\Models
- *
- * @table books
- * @col title string
- * @col author string
- * @col publication_date date
- */
-class Book extends BaseModel
+
+class BaseModel extends Model
 {
     use HasSlug;
 
-    protected $dates = [
-        'publication_date',
-    ];
+    protected $guarded = ['id'];
 
     //=== RELATIONSHIPS ===//
     public function rating()
@@ -33,15 +26,16 @@ class Book extends BaseModel
         return $this->morphMany(Link::class, 'media');
     }
 
-    //=== ATTRIBUTES ===//
-
-    //=== SCOPES ===//
-
     //=== METHODS ===//
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public static function retrieve($value)
+    {
+        return self::where('slug', $value)->firstOrFail();
     }
 }

@@ -1,22 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace BetterRating\BookRatingPackage\Http\Controllers;
 
-use App\Models\Book;
+use BetterRating\BookRatingPackage\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class BookController extends Controller
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function index()
     {
-        $books = Books::paginate(25);
+        $books = Book::paginate(25);
 
-        return view('books.index', compact('books'));
+        return default_view('index', compact('books'));
     }
 
     public function create()
     {
-        return view('books.create');
+        return default_view('create');
     }
 
     public function store(Request $request)
@@ -30,12 +36,12 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        return default_view('show', compact('book'));
     }
 
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        return default_view('edit', compact('book'));
     }
 
     public function update(Request $request, Book $book)

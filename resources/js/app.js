@@ -29,8 +29,17 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map((key) => {
+    let name = key.split('/');
+    let file = name.pop().split('.')[0];
+    let dir = name.pop();
+    if (dir !== 'components' && dir.charAt(0) !== '_') {
+        file = dir + '' + file;
+    }
+    
+    Vue.component(file.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/^-+|-+$/g, '').toLowerCase(), files(key).default)
+});
 
 Vue.component('rating-partial-form', require('./components/rating-partials/form').default);
 Vue.component('profile-form', require('./components/profiles/form').default);
@@ -38,6 +47,7 @@ Vue.component('rating-form', require('./components/ratings/form').default);
 Vue.component('rating-partial', require('./components/ratings/partials/rating-partial').default);
 Vue.component('star', require('./components/ratings/partials/star').default);
 Vue.component('star-rating', require('./components/ratings/partials/star-rating').default);
+// Vue.component('default-form', require('./components/default/form').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

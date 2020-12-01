@@ -17,7 +17,10 @@ return [
     |
     */
     'columns' => [
-        'Title' => 'title',
+        'Title' => [
+            'column' => 'title',
+            'type' => 'string'
+        ],
     ],
 
     /*

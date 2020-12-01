@@ -25,7 +25,7 @@ function default_view($view = null, $data = [], $mergeData = [])
     }
 
     //get columns
-
+    $data['config_name'] = 'bookratingpackage';
     $data['display_columns'] = config('bookratingpackage.columns');
     $data['default_columns'] = [
         'rating' => config('bookratingpackage.use_default_rating_column'),

@@ -15,7 +15,7 @@
             @foreach($items as $item)
 
                 @foreach($display_columns as $label => $attribute)
-                    <div class="col-span-1 py-2 h-16 pl-2 border-b border-l text-1xl font-bold">{{ $item->{$attribute} }}</div>
+                    <div class="col-span-1 py-2 h-16 pl-2 border-b border-l text-1xl font-bold">{{ $item->{$attribute['column']} }}</div>
                 @endforeach
                 @if($default_columns['rating'])
                     <div class="col-span-1 py-2 h-16 border-b">

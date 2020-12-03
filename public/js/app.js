@@ -12654,6 +12654,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // import StarRating from 'vue-star-rating'
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -12694,6 +12695,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  computed: {
+    max_possible_score: function max_possible_score() {
+      return 5;
+    }
+  },
   components: {// StarRating
   }
 });
@@ -12710,6 +12716,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _star_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./star.vue */ "./resources/js/components/ratings/partials/star.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12816,6 +12835,10 @@ __webpack_require__.r(__webpack_exports__);
     glowColor: {
       type: String,
       "default": '#fff'
+    },
+    sizeFor: {
+      type: Number,
+      "default": null
     }
   },
   created: function created() {
@@ -12823,6 +12846,10 @@ __webpack_require__.r(__webpack_exports__);
     this.currentRating = this.rating;
     this.selectedRating = this.currentRating;
     this.createStars(this.roundStartRating);
+  },
+  mounted: function mounted() {
+    this.computedStarSize = Math.min(this.starSize, this.$refs.starRow.clientWidth / (this.sizeFor + 1) - this.margin);
+    this.haveRowWidth = true;
   },
   methods: {
     setRating: function setRating($event, persist) {
@@ -12868,7 +12895,8 @@ __webpack_require__.r(__webpack_exports__);
     round: function round() {
       var inv = 1.0 / this.increment;
       this.currentRating = Math.min(this.maxRating, Math.ceil(this.currentRating * inv) / inv);
-    }
+    },
+    computedSize: function computedSize() {}
   },
   computed: {
     formattedRating: function formattedRating() {
@@ -12894,7 +12922,9 @@ __webpack_require__.r(__webpack_exports__);
       fillLevel: [],
       currentRating: 0,
       selectedRating: 0,
-      ratingSelected: false
+      ratingSelected: false,
+      haveRowWidth: false,
+      computedStarSize: this.starSize
     };
   }
 });
@@ -50179,7 +50209,8 @@ var render = function() {
           attrs: {
             "max-rating": _vm.possible_score,
             "show-rating": false,
-            "rounded-corners": true
+            "rounded-corners": true,
+            "size-for": _vm.max_possible_score
           },
           on: { "rating-selected": _vm.rated, "current-rating": _vm.showLabel },
           model: {
@@ -50250,6 +50281,7 @@ var render = function() {
   return _c(
     "div",
     {
+      ref: "starRow",
       class: [
         "vue-star-rating",
         { "vue-star-rating-rtl": _vm.rtl },
@@ -50257,101 +50289,106 @@ var render = function() {
       ]
     },
     [
-      _c(
-        "div",
-        { staticClass: "vue-star-rating", on: { mouseleave: _vm.resetRating } },
-        [
-          !_vm.readOnly
-            ? _c(
-                "span",
-                {
-                  key: 0,
-                  class: [
-                    { "vue-star-rating-pointer": !_vm.readOnly },
-                    "vue-star-rating-star"
-                  ],
-                  style: { "margin-right": _vm.margin + "px" }
-                },
-                [
-                  _c("star", {
-                    attrs: {
-                      fill: _vm.fillLevel[0],
-                      size: _vm.starSize,
-                      points: _vm.starPoints,
-                      "star-id": 0,
-                      step: _vm.step,
-                      "active-color": _vm.activeColor,
-                      "inactive-color": _vm.inactiveColor,
-                      "border-color": _vm.borderColor,
-                      "border-width": _vm.borderWidth,
-                      "rounded-corners": _vm.roundedCorners,
-                      rtl: _vm.rtl,
-                      glow: _vm.glow,
-                      "glow-color": _vm.glowColor,
-                      reset: true
+      _vm.haveRowWidth
+        ? _c(
+            "div",
+            {
+              staticClass: "vue-star-rating",
+              on: { mouseleave: _vm.resetRating }
+            },
+            [
+              !_vm.readOnly
+                ? _c(
+                    "span",
+                    {
+                      key: 0,
+                      class: [
+                        { "vue-star-rating-pointer": !_vm.readOnly },
+                        "vue-star-rating-star"
+                      ],
+                      style: { "margin-right": _vm.margin + "px" }
                     },
-                    on: {
-                      "star-selected": function($event) {
-                        return _vm.setRating($event, true)
-                      },
-                      "star-mouse-move": _vm.setRating
-                    }
-                  })
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.maxRating, function(n) {
-            return _c(
-              "span",
-              {
-                key: n,
-                class: [
-                  { "vue-star-rating-pointer": !_vm.readOnly },
-                  "vue-star-rating-star"
-                ],
-                style: { "margin-right": _vm.margin + "px" }
-              },
-              [
-                _c("star", {
-                  attrs: {
-                    fill: _vm.fillLevel[n],
-                    size: _vm.starSize,
-                    points: _vm.starPoints,
-                    "star-id": n,
-                    step: _vm.step,
-                    "active-color": _vm.activeColor,
-                    "inactive-color": _vm.inactiveColor,
-                    "border-color": _vm.borderColor,
-                    "border-width": _vm.borderWidth,
-                    "rounded-corners": _vm.roundedCorners,
-                    rtl: _vm.rtl,
-                    glow: _vm.glow,
-                    "glow-color": _vm.glowColor
+                    [
+                      _c("star", {
+                        attrs: {
+                          fill: _vm.fillLevel[0],
+                          size: _vm.computedStarSize,
+                          points: _vm.starPoints,
+                          "star-id": 0,
+                          step: _vm.step,
+                          "active-color": _vm.activeColor,
+                          "inactive-color": _vm.inactiveColor,
+                          "border-color": _vm.borderColor,
+                          "border-width": _vm.borderWidth,
+                          "rounded-corners": _vm.roundedCorners,
+                          rtl: _vm.rtl,
+                          glow: _vm.glow,
+                          "glow-color": _vm.glowColor,
+                          reset: true
+                        },
+                        on: {
+                          "star-selected": function($event) {
+                            return _vm.setRating($event, true)
+                          },
+                          "star-mouse-move": _vm.setRating
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.maxRating, function(n) {
+                return _c(
+                  "span",
+                  {
+                    key: n,
+                    class: [
+                      { "vue-star-rating-pointer": !_vm.readOnly },
+                      "vue-star-rating-star"
+                    ],
+                    style: { "margin-right": _vm.margin + "px" }
                   },
-                  on: {
-                    "star-selected": function($event) {
-                      return _vm.setRating($event, true)
-                    },
-                    "star-mouse-move": _vm.setRating
-                  }
-                })
-              ],
-              1
-            )
-          }),
-          _vm._v(" "),
-          _vm.showRating
-            ? _c(
-                "span",
-                { class: ["vue-star-rating-rating-text", _vm.textClass] },
-                [_vm._v(" " + _vm._s(_vm.formattedRating))]
-              )
-            : _vm._e()
-        ],
-        2
-      )
+                  [
+                    _c("star", {
+                      attrs: {
+                        fill: _vm.fillLevel[n],
+                        size: _vm.computedStarSize,
+                        points: _vm.starPoints,
+                        "star-id": n,
+                        step: _vm.step,
+                        "active-color": _vm.activeColor,
+                        "inactive-color": _vm.inactiveColor,
+                        "border-color": _vm.borderColor,
+                        "border-width": _vm.borderWidth,
+                        "rounded-corners": _vm.roundedCorners,
+                        rtl: _vm.rtl,
+                        glow: _vm.glow,
+                        "glow-color": _vm.glowColor
+                      },
+                      on: {
+                        "star-selected": function($event) {
+                          return _vm.setRating($event, true)
+                        },
+                        "star-mouse-move": _vm.setRating
+                      }
+                    })
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _vm.showRating
+                ? _c(
+                    "span",
+                    { class: ["vue-star-rating-rating-text", _vm.textClass] },
+                    [_vm._v(" " + _vm._s(_vm.formattedRating))]
+                  )
+                : _vm._e()
+            ],
+            2
+          )
+        : _vm._e()
     ]
   )
 }

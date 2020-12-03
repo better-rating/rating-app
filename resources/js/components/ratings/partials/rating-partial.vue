@@ -9,6 +9,7 @@
                 :max-rating="possible_score"
                 :show-rating="false"
                 :rounded-corners="true"
+                :size-for="max_possible_score"
                 @rating-selected="rated"
                 @current-rating="showLabel"
             ></star-rating>
@@ -59,6 +60,11 @@ export default {
                 rating: this.rating,
                 note: this.note,
             });
+        }
+    },
+    computed: {
+        max_possible_score() {
+            return 5;
         }
     },
     components: {

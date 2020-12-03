@@ -1,14 +1,27 @@
 <template>
-    <div :class="['vue-star-rating', {'vue-star-rating-rtl':rtl}, {'vue-star-rating-inline': inline}]">
-        <div @mouseleave="resetRating" class="vue-star-rating">
+    <div :class="['vue-star-rating', {'vue-star-rating-rtl':rtl}, {'vue-star-rating-inline': inline}]" ref="starRow">
+        <div v-if="haveRowWidth" @mouseleave="resetRating" class="vue-star-rating">
             <!-- dotted 0-star -->
             <span v-if="!readOnly" :key="0" :class="[{'vue-star-rating-pointer': !readOnly }, 'vue-star-rating-star']" :style="{'margin-right': margin + 'px'}">
-                <star :fill="fillLevel[0]" :size="starSize" :points="starPoints" :star-id="0" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor" :reset="true"></star>
+                <star :fill="fillLevel[0]" :size="computedStarSize" :points="starPoints" :star-id="0" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor" :reset="true"></star>
             </span>
             <!-- the rest of the stars-->
             <span v-for="n in maxRating" :key="n" :class="[{'vue-star-rating-pointer': !readOnly }, 'vue-star-rating-star']" :style="{'margin-right': margin + 'px'}">
-              <star :fill="fillLevel[n]" :size="starSize" :points="starPoints" :star-id="n" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor"></star>
+              <star :fill="fillLevel[n]" :size="computedStarSize" :points="starPoints" :star-id="n" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor"></star>
             </span>
+            <!-- fake stars for uniform sizing reasons-->
+<!--            <div v-for="n in this.sizeFor - this.maxRating"-->
+<!--                 :key="n"-->
+<!--                 :class="[{'vue-star-rating-pointer': !readOnly }, 'vue-star-rating-star']"-->
+<!--                 :style="{-->
+<!--                     'height': computedStarSize+'px',-->
+<!--                     'width': computedStarSize+'px',-->
+<!--                 }"-->
+<!--            class="border border-black bg-red-500"-->
+<!--            >-->
+<!--&lt;!&ndash;              <star :fill="fillLevel[n]" :size="computedStarSize" :points="starPoints" :star-id="n" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor"></star>&ndash;&gt;-->
+<!--            </div>-->
+            <!-- rating, eg. 6/10 -->
             <span v-if="showRating" :class="['vue-star-rating-rating-text', textClass]"> {{ formattedRating }}</span>
         </div>
     </div>
@@ -106,6 +119,10 @@ export default {
         glowColor: {
             type: String,
             default: '#fff'
+        },
+        sizeFor: {
+            type: Number,
+            default: null
         }
     },
     created() {
@@ -113,6 +130,10 @@ export default {
         this.currentRating = this.rating
         this.selectedRating = this.currentRating
         this.createStars(this.roundStartRating)
+    },
+    mounted() {
+        this.computedStarSize = Math.min(this.starSize, (this.$refs.starRow.clientWidth / (this.sizeFor + 1)) - this.margin);
+        this.haveRowWidth = true;
     },
     methods: {
         setRating($event, persist) {
@@ -152,6 +173,8 @@ export default {
         round() {
             var inv = 1.0 / this.increment
             this.currentRating = Math.min(this.maxRating, Math.ceil(this.currentRating * inv) / inv)
+        },
+        computedSize() {
         }
     },
     computed: {
@@ -162,8 +185,8 @@ export default {
             return this.ratingSelected || this.roundStartRating
         },
         margin() {
-            return this.padding + this.borderWidth
-        }
+            return this.padding + this.borderWidth;
+        },
     },
     watch: {
         rating(val) {
@@ -178,7 +201,9 @@ export default {
             fillLevel: [],
             currentRating: 0,
             selectedRating: 0,
-            ratingSelected: false
+            ratingSelected: false,
+            haveRowWidth: false,
+            computedStarSize: this.starSize
         }
     }
 }

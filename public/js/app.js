@@ -12012,6 +12012,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -12032,30 +12034,112 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    type: String,
+    media: Object,
+    media_type: String,
     fields: Object
   },
   data: function data() {
     return {
-      rating_data: this.keysOnNull(this.fields)
+      searchableProfiles: [],
+      selectedProfile: '',
+      profile: {
+        rating_partials: []
+      },
+      reviews: {},
+      totalScore: -1,
+      field_data: this.skeleton(this.fields)
     };
   },
+  mounted: function mounted() {
+    this.getProfiles();
+  },
   methods: {
-    keysOnNull: function keysOnNull(object) {
-      for (var _i = 0, _Object$entries = Object.entries(object); _i < _Object$entries.length; _i++) {
+    getProfiles: function getProfiles() {
+      var _this = this;
+
+      axios.get('/data/profiles/list/' + this.media_type).then(function (res) {
+        _this.searchableProfiles = res.data;
+      });
+    },
+    onProfileSelect: function onProfileSelect(selectedItem) {
+      var _this2 = this;
+
+      axios.get('/data/profiles/' + selectedItem).then(function (res) {
+        _this2.profile = res.data;
+      });
+    },
+    tallyScores: function tallyScores(data) {
+      this.reviews[data.key] = data;
+      this.totalScore = 0;
+
+      for (var key in this.reviews) {
+        this.totalScore += this.reviews[key].rating;
+      }
+    },
+    save: function save() {
+      axios.post('/ratings', {
+        media_type: this.media_type,
+        media_slug: this.media.slug,
+        reviews: this.reviews
+      }).then(function (res) {// if (res.data.success) {
+        //     window.location.href = '/'+this.media_type+'/'+this.media.slug
+        // }
+      });
+    },
+    skeleton: function skeleton(object) {
+      var res = _.clone(object);
+
+      for (var _i = 0, _Object$entries = Object.entries(res); _i < _Object$entries.length; _i++) {
         var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
             key = _Object$entries$_i[0],
             value = _Object$entries$_i[1];
 
-        object[key] = null;
+        res[key] = null;
       }
 
-      return object;
+      return res;
     }
   },
   computed: {
+    totalPossibleScore: function totalPossibleScore() {
+      var total = 0;
+      this.profile.rating_partials.forEach(function (rp) {
+        total += rp.possible_score;
+      });
+      return total;
+    },
     usable_fields: function usable_fields() {
       var result = [];
 
@@ -12072,6 +12156,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       return result;
     }
+  },
+  components: {
+    ModelSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelSelect"]
   }
 });
 
@@ -12382,8 +12469,8 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       var url = '/rating-partials';
 
-      if ('id' in this.rating) {
-        url += '/' + this.rating.id;
+      if ('id' in this.ratingpartial) {
+        url += '/' + this.ratingpartial.id;
       }
 
       axios.post(url, {
@@ -12546,6 +12633,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -49290,99 +49379,192 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.usable_fields, function(field) {
-      return _c("div", [
-        _c("span", [_vm._v(_vm._s(field.label))]),
-        _vm._v(" "),
-        field.type === "checkbox"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating_data[field.label],
-                  expression: "rating_data[field.label]"
-                }
-              ],
-              attrs: { type: "checkbox" },
-              domProps: {
-                checked: Array.isArray(_vm.rating_data[field.label])
-                  ? _vm._i(_vm.rating_data[field.label], null) > -1
-                  : _vm.rating_data[field.label]
-              },
-              on: {
-                change: function($event) {
-                  var $$a = _vm.rating_data[field.label],
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = null,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 &&
-                        _vm.$set(
-                          _vm.rating_data,
-                          field.label,
-                          $$a.concat([$$v])
-                        )
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          _vm.rating_data,
-                          field.label,
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
+  return _c("div", { attrs: { id: "rating-form" } }, [
+    _c("div", { staticClass: "grid grid-cols-12 mb-4" }, [
+      _c(
+        "div",
+        { staticClass: "col-span-6" },
+        _vm._l(_vm.usable_fields, function(field) {
+          return _c("div", { staticClass: "grid grid-cols-6" }, [
+            _c("span", { staticClass: "col-span-2" }, [
+              _vm._v(_vm._s(field.label))
+            ]),
+            _vm._v(" "),
+            field.type === "checkbox"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.field_data[field.label],
+                      expression: "field_data[field.label]"
                     }
-                  } else {
-                    _vm.$set(_vm.rating_data, field.label, $$c)
+                  ],
+                  staticClass: "col-span-4",
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.field_data[field.label])
+                      ? _vm._i(_vm.field_data[field.label], null) > -1
+                      : _vm.field_data[field.label]
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.field_data[field.label],
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.field_data,
+                              field.label,
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.field_data,
+                              field.label,
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.field_data, field.label, $$c)
+                      }
+                    }
                   }
-                }
-              }
-            })
-          : field.type === "radio"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating_data[field.label],
-                  expression: "rating_data[field.label]"
-                }
-              ],
-              attrs: { type: "radio" },
-              domProps: { checked: _vm._q(_vm.rating_data[field.label], null) },
-              on: {
-                change: function($event) {
-                  return _vm.$set(_vm.rating_data, field.label, null)
-                }
-              }
-            })
-          : _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating_data[field.label],
-                  expression: "rating_data[field.label]"
-                }
-              ],
-              attrs: { type: field.type },
-              domProps: { value: _vm.rating_data[field.label] },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                })
+              : field.type === "radio"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.field_data[field.label],
+                      expression: "field_data[field.label]"
+                    }
+                  ],
+                  staticClass: "col-span-4",
+                  attrs: { type: "radio" },
+                  domProps: {
+                    checked: _vm._q(_vm.field_data[field.label], null)
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.field_data, field.label, null)
+                    }
                   }
-                  _vm.$set(_vm.rating_data, field.label, $event.target.value)
-                }
+                })
+              : _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.field_data[field.label],
+                      expression: "field_data[field.label]"
+                    }
+                  ],
+                  staticClass: "col-span-4",
+                  attrs: { type: field.type },
+                  domProps: { value: _vm.field_data[field.label] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.field_data, field.label, $event.target.value)
+                    }
+                  }
+                })
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm.totalScore >= 0
+        ? _c("div", { staticClass: "col-start-9 col-span-1" }, [
+            _vm._v(
+              _vm._s(
+                ((_vm.totalScore / _vm.totalPossibleScore) * 100).toFixed(0)
+              ) + "%"
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.totalScore >= 0
+        ? _c("div", { staticClass: "col-span-1" }, [
+            _vm._v(
+              _vm._s(
+                ((_vm.totalScore / _vm.totalPossibleScore) * 10).toFixed(0)
+              ) + "/10"
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.totalScore >= 0
+        ? _c("div", { staticClass: "col-span-1" }, [
+            _vm._v(
+              _vm._s(
+                ((_vm.totalScore / _vm.totalPossibleScore) * 5).toFixed(0)
+              ) + "/5"
+            )
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _vm.media_type !== ""
+      ? _c(
+          "div",
+          { staticClass: "mb-4" },
+          [
+            _c("model-select", {
+              attrs: { options: _vm.searchableProfiles },
+              on: { input: _vm.onProfileSelect },
+              model: {
+                value: _vm.selectedProfile,
+                callback: function($$v) {
+                  _vm.selectedProfile = $$v
+                },
+                expression: "selectedProfile"
               }
             })
-      ])
-    }),
-    0
-  )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "grid grid-cols-12" },
+      [
+        _vm._l(_vm.profile.rating_partials, function(ratingpartial) {
+          return _c("rating-partial", {
+            key: ratingpartial.hashid,
+            attrs: {
+              name: ratingpartial.name,
+              description: ratingpartial.description,
+              possible_score: ratingpartial.possible_score,
+              labels: ratingpartial.labels
+            },
+            on: { update: _vm.tallyScores }
+          })
+        }),
+        _vm._v(" "),
+        _vm.profile.rating_partials.length > 0
+          ? _c("div", {
+              staticClass: "border-b border-gray-500 col-span-12 mb-4"
+            })
+          : _vm._e()
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("button", { staticClass: "btn btn-blue", on: { click: _vm.save } }, [
+      _vm._v("Save")
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49969,34 +50151,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", [_vm._v(_vm._s(_vm.name))]),
-      _vm._v(" "),
-      _c("div", [_vm._v(_vm._s(_vm.description))]),
-      _vm._v(" "),
-      _vm.currentRating >= 0
-        ? _c("div", [_vm._v(_vm._s(_vm.labels[_vm.currentRating]))])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("star-rating", {
-        attrs: {
-          "max-rating": _vm.possible_score,
-          "show-rating": false,
-          "rounded-corners": true
-        },
-        on: { "rating-selected": _vm.rated, "current-rating": _vm.showLabel },
-        model: {
-          value: _vm.rating,
-          callback: function($$v) {
-            _vm.rating = $$v
+  return _c("div", { staticClass: "contents" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "col-span-2 p-2 border-t border-l border-gray-500 font-bold bg-gray-300"
+      },
+      [_vm._v(_vm._s(_vm.name))]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-span-3 p-2 border-t border-l border-gray-500" },
+      [_vm._v(_vm._s(_vm.description))]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-span-3 p-2 border-t border-l border-gray-500" },
+      [
+        _c("div", { staticClass: "h-4" }, [
+          _vm._v(_vm._s(_vm.labels[_vm.currentRating]))
+        ]),
+        _vm._v(" "),
+        _c("star-rating", {
+          attrs: {
+            "max-rating": _vm.possible_score,
+            "show-rating": false,
+            "rounded-corners": true
           },
-          expression: "rating"
-        }
-      }),
-      _vm._v(" "),
-      _c("div", [
+          on: { "rating-selected": _vm.rated, "current-rating": _vm.showLabel },
+          model: {
+            value: _vm.rating,
+            callback: function($$v) {
+              _vm.rating = $$v
+            },
+            expression: "rating"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "col-span-4 p-2 border-t border-l border-r border-gray-500"
+      },
+      [
         _c("textarea", {
           directives: [
             {
@@ -50006,7 +50209,7 @@ var render = function() {
               expression: "note"
             }
           ],
-          attrs: { cols: "30", rows: "10" },
+          staticClass: "w-full h-full",
           domProps: { value: _vm.note },
           on: {
             change: _vm.updateParent,
@@ -50018,10 +50221,9 @@ var render = function() {
             }
           }
         })
-      ])
-    ],
-    1
-  )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

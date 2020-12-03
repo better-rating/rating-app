@@ -51,8 +51,8 @@
         methods: {
             save: function () {
                 let url = '/rating-partials';
-                if ('id' in this.rating) {
-                    url += '/' + this.rating.id;
+                if ('id' in this.ratingpartial) {
+                    url += '/' + this.ratingpartial.id;
                 }
 
                 axios.post(url, {

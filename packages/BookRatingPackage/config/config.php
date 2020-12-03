@@ -21,6 +21,14 @@ return [
             'column' => 'title',
             'type' => 'string'
         ],
+        'Author' => [
+            'column' => 'author',
+            'type' => 'string'
+        ],
+        'Release Date' => [
+            'column' => 'released_on',
+            'type' => 'date'
+        ]
     ],
 
     /*

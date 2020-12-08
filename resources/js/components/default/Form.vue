@@ -15,17 +15,19 @@
                     </v-date-picker>
                     <input v-else class="col-span-4 mb-2" :type="field.type" v-model="field_data[field.label]">
                 </div>
+                <div class="grid grid-cols-6 mb-4" v-if="media_manifest.type !== ''">
+                    <span class="col-span-2">Rating Profile</span>
+                    <model-select
+                        class="col-span-4"
+                        :options="searchableProfiles"
+                        v-model="selectedProfile"
+                        @input="onProfileSelect"
+                    ></model-select>
+                </div>
             </div>
             <div class="col-start-9 col-span-1" v-if="totalScore >= 0">{{ (totalScore / totalPossibleScore * 100).toFixed(0) }}%</div>
             <div class="col-span-1" v-if="totalScore >= 0">{{ (totalScore / totalPossibleScore * 10).toFixed(0) }}/10</div>
             <div class="col-span-1" v-if="totalScore >= 0">{{ (totalScore / totalPossibleScore * 5).toFixed(0) }}/5</div>
-        </div>
-        <div class="mb-4" v-if="media_type !== ''">
-            <model-select
-                :options="searchableProfiles"
-                v-model="selectedProfile"
-                @input="onProfileSelect"
-            ></model-select>
         </div>
         <!-- identify rating profile-->
         <div class="grid grid-cols-12">
@@ -51,7 +53,8 @@ import {ModelSelect} from 'vue-search-select'
 export default {
     props: {
         media: Object,
-        media_type: String,
+        media_manifest: Object,
+        media_model: String,
         fields: Object
     },
     data() {
@@ -71,7 +74,7 @@ export default {
     },
     methods: {
         getProfiles() {
-            axios.get('/data/profiles/list/' + this.media_type).then(res => {
+            axios.get('/data/profiles/list/' + this.media_manifest.type).then(res => {
                 this.searchableProfiles = res.data
             })
         },
@@ -88,8 +91,25 @@ export default {
             }
         },
         save() {
+            if (this.media) {
+                this.saveRating()
+            } else {
+                this.saveMedia()
+            }
+        },
+        saveMedia() {
+            axios.post('/'+this.media_manifest.save_uri, {
+                fields: this.field_data
+            }).then(res => {
+                if (res.data.success) {
+                    this.media = res.data.media
+                    this.saveRating();
+                }
+            });
+        },
+        saveRating() {
             axios.post('/ratings', {
-                media_type: this.media_type,
+                media_type: this.media_manifest.type,
                 media_slug: this.media.slug,
                 reviews: this.reviews
             }).then(res => {

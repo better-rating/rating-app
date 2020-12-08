@@ -25,6 +25,7 @@ function default_view($view = null, $data = [], $mergeData = [])
     }
 
     //get columns
+    // This might work better as a request file or a middleware
     $data['config_name'] = 'bookratingpackage';
     $data['display_columns'] = config('bookratingpackage.columns');
     $data['default_columns'] = [

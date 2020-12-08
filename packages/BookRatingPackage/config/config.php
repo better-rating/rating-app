@@ -26,7 +26,7 @@ return [
             'type' => 'string'
         ],
         'Release Date' => [
-            'column' => 'released_on',
+            'column' => 'publication_date',
             'type' => 'date'
         ]
     ],

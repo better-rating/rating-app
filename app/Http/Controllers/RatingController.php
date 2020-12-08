@@ -30,7 +30,7 @@ class RatingController extends Controller
 
         $rating = new Rating();
 
-        $mediaInstance = resolve("\\App\\Models\\".Str::studly($data['media_type']));
+        $mediaInstance = resolve($data['media_type']);
         $media = $mediaInstance->retrieve($data['media_slug']);
 
         $rating->media_type = $data['media_type'];

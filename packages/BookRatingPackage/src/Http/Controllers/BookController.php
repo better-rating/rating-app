@@ -3,6 +3,7 @@
 namespace BetterRating\BookRatingPackage\Http\Controllers;
 
 use BetterRating\BookRatingPackage\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,16 +23,30 @@ class BookController extends Controller
 
     public function create()
     {
-        return default_view('create');
+        $modelClass = Book::class;
+        $mediaManifest = [
+            'type' => config('bookratingpackage.name'),
+            'save_uri' => config('bookratingpackage.name_plural')
+        ];
+        return default_view('create', compact('modelClass', 'mediaManifest'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
+        $columns = config('bookratingpackage.columns');
 
-        Book::create($data);
+        $create = [];
+        foreach ($data['fields'] as $col => $datum) {
+            if ($columns[$col]['type'] === 'date') {
+                $datum = Carbon::parse($datum);
+            }
+            $create[$columns[$col]['column']] = $datum;
+        }
 
-        echo json_encode(['success' => true]);
+        $book = Book::create($create);
+
+        echo json_encode(['success' => true, 'media' => $book]);
     }
 
     public function show(Book $book)

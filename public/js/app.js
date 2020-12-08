@@ -12073,11 +12073,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     media: Object,
-    media_type: String,
+    media_manifest: Object,
+    media_model: String,
     fields: Object
   },
   data: function data() {
@@ -12099,7 +12102,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     getProfiles: function getProfiles() {
       var _this = this;
 
-      axios.get('/data/profiles/list/' + this.media_type).then(function (res) {
+      axios.get('/data/profiles/list/' + this.media_manifest.type).then(function (res) {
         _this.searchableProfiles = res.data;
       });
     },
@@ -12119,8 +12122,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
     },
     save: function save() {
+      if (this.media) {
+        this.saveRating();
+      } else {
+        this.saveMedia();
+      }
+    },
+    saveMedia: function saveMedia() {
+      var _this3 = this;
+
+      axios.post('/' + this.media_manifest.save_uri, {
+        fields: this.field_data
+      }).then(function (res) {
+        if (res.data.success) {
+          _this3.media = res.data.media;
+
+          _this3.saveRating();
+        }
+      });
+    },
+    saveRating: function saveRating() {
       axios.post('/ratings', {
-        media_type: this.media_type,
+        media_type: this.media_manifest.type,
         media_slug: this.media.slug,
         reviews: this.reviews
       }).then(function (res) {// if (res.data.success) {
@@ -49437,148 +49460,176 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-span-6" },
-        _vm._l(_vm.usable_fields, function(field) {
-          return _c(
-            "div",
-            { staticClass: "grid grid-cols-6" },
-            [
-              _c("span", { staticClass: "col-span-2" }, [
-                _vm._v(_vm._s(field.label))
-              ]),
-              _vm._v(" "),
-              field.type === "date"
-                ? _c("v-date-picker", {
-                    staticClass: "col-span-4 mb-2",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var inputValue = ref.inputValue
-                            var inputEvents = ref.inputEvents
-                            return [
-                              _c(
-                                "input",
-                                _vm._g(
-                                  {
-                                    staticClass: "w-full",
-                                    domProps: { value: inputValue }
-                                  },
-                                  inputEvents
+        [
+          _vm._l(_vm.usable_fields, function(field) {
+            return _c(
+              "div",
+              { staticClass: "grid grid-cols-6" },
+              [
+                _c("span", { staticClass: "col-span-2" }, [
+                  _vm._v(_vm._s(field.label))
+                ]),
+                _vm._v(" "),
+                field.type === "date"
+                  ? _c("v-date-picker", {
+                      staticClass: "col-span-4 mb-2",
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(ref) {
+                              var inputValue = ref.inputValue
+                              var inputEvents = ref.inputEvents
+                              return [
+                                _c(
+                                  "input",
+                                  _vm._g(
+                                    {
+                                      staticClass: "w-full",
+                                      domProps: { value: inputValue }
+                                    },
+                                    inputEvents
+                                  )
                                 )
-                              )
-                            ]
+                              ]
+                            }
                           }
+                        ],
+                        null,
+                        true
+                      ),
+                      model: {
+                        value: _vm.field_data[field.label],
+                        callback: function($$v) {
+                          _vm.$set(_vm.field_data, field.label, $$v)
+                        },
+                        expression: "field_data[field.label]"
+                      }
+                    })
+                  : field.type === "checkbox"
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.field_data[field.label],
+                          expression: "field_data[field.label]"
                         }
                       ],
-                      null,
-                      true
-                    ),
-                    model: {
-                      value: _vm.field_data[field.label],
-                      callback: function($$v) {
-                        _vm.$set(_vm.field_data, field.label, $$v)
+                      staticClass: "col-span-4 mb-2",
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.field_data[field.label])
+                          ? _vm._i(_vm.field_data[field.label], null) > -1
+                          : _vm.field_data[field.label]
                       },
-                      expression: "field_data[field.label]"
-                    }
-                  })
-                : field.type === "checkbox"
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.field_data[field.label],
-                        expression: "field_data[field.label]"
-                      }
-                    ],
-                    staticClass: "col-span-4 mb-2",
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.field_data[field.label])
-                        ? _vm._i(_vm.field_data[field.label], null) > -1
-                        : _vm.field_data[field.label]
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.field_data[field.label],
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.field_data,
-                                field.label,
-                                $$a.concat([$$v])
-                              )
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.field_data[field.label],
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.field_data,
+                                  field.label,
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.field_data,
+                                  field.label,
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
                           } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.field_data,
-                                field.label,
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            _vm.$set(_vm.field_data, field.label, $$c)
                           }
-                        } else {
-                          _vm.$set(_vm.field_data, field.label, $$c)
                         }
                       }
-                    }
-                  })
-                : field.type === "radio"
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.field_data[field.label],
-                        expression: "field_data[field.label]"
-                      }
-                    ],
-                    staticClass: "col-span-4 mb-2",
-                    attrs: { type: "radio" },
-                    domProps: {
-                      checked: _vm._q(_vm.field_data[field.label], null)
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.field_data, field.label, null)
-                      }
-                    }
-                  })
-                : _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.field_data[field.label],
-                        expression: "field_data[field.label]"
-                      }
-                    ],
-                    staticClass: "col-span-4 mb-2",
-                    attrs: { type: field.type },
-                    domProps: { value: _vm.field_data[field.label] },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                    })
+                  : field.type === "radio"
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.field_data[field.label],
+                          expression: "field_data[field.label]"
                         }
-                        _vm.$set(
-                          _vm.field_data,
-                          field.label,
-                          $event.target.value
-                        )
+                      ],
+                      staticClass: "col-span-4 mb-2",
+                      attrs: { type: "radio" },
+                      domProps: {
+                        checked: _vm._q(_vm.field_data[field.label], null)
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.field_data, field.label, null)
+                        }
                       }
+                    })
+                  : _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.field_data[field.label],
+                          expression: "field_data[field.label]"
+                        }
+                      ],
+                      staticClass: "col-span-4 mb-2",
+                      attrs: { type: field.type },
+                      domProps: { value: _vm.field_data[field.label] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.field_data,
+                            field.label,
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _vm.media_manifest.type !== ""
+            ? _c(
+                "div",
+                { staticClass: "grid grid-cols-6 mb-4" },
+                [
+                  _c("span", { staticClass: "col-span-2" }, [
+                    _vm._v("Rating Profile")
+                  ]),
+                  _vm._v(" "),
+                  _c("model-select", {
+                    staticClass: "col-span-4",
+                    attrs: { options: _vm.searchableProfiles },
+                    on: { input: _vm.onProfileSelect },
+                    model: {
+                      value: _vm.selectedProfile,
+                      callback: function($$v) {
+                        _vm.selectedProfile = $$v
+                      },
+                      expression: "selectedProfile"
                     }
                   })
-            ],
-            1
-          )
-        }),
-        0
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        2
       ),
       _vm._v(" "),
       _vm.totalScore >= 0
@@ -49611,27 +49662,6 @@ var render = function() {
           ])
         : _vm._e()
     ]),
-    _vm._v(" "),
-    _vm.media_type !== ""
-      ? _c(
-          "div",
-          { staticClass: "mb-4" },
-          [
-            _c("model-select", {
-              attrs: { options: _vm.searchableProfiles },
-              on: { input: _vm.onProfileSelect },
-              model: {
-                value: _vm.selectedProfile,
-                callback: function($$v) {
-                  _vm.selectedProfile = $$v
-                },
-                expression: "selectedProfile"
-              }
-            })
-          ],
-          1
-        )
-      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",

@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 import 'vue-search-select/dist/VueSearchSelect.css'
+import VCalendar from 'v-calendar';
 
 window.Vue = require('vue');
 
@@ -20,6 +21,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faStar,faStarHalfAlt,faFilm,faBook,faTv);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.use(VCalendar);
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,7 +40,7 @@ files.keys().map((key) => {
     if (dir !== 'components' && dir.charAt(0) !== '_') {
         file = dir + '' + file;
     }
-    
+
     Vue.component(file.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/^-+|-+$/g, '').toLowerCase(), files(key).default)
 });
 

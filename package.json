@@ -32,6 +32,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
         "@fortawesome/vue-fontawesome": "^0.1.10",
         "tailwindcss": "^1.9.6",
+        "v-calendar": "^2.1.1",
         "vue-search-select": "^2.9.3",
         "vue-star-rating": "^1.7.0"
     }

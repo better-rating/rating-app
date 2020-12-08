@@ -3,7 +3,17 @@
         <div class="grid grid-cols-12 mb-4">
             <div class="col-span-6">
                 <div class="grid grid-cols-6" v-for="field in usable_fields">
-                    <span class="col-span-2">{{ field.label }}</span> <input class="col-span-4" :type="field.type" v-model="field_data[field.label]">
+                    <span class="col-span-2">{{ field.label }}</span>
+                    <v-date-picker v-if="field.type === 'date'" class="col-span-4 mb-2" v-model="field_data[field.label]">
+                        <template v-slot="{ inputValue, inputEvents }">
+                            <input
+                                class="w-full"
+                                :value="inputValue"
+                                v-on="inputEvents"
+                            />
+                        </template>
+                    </v-date-picker>
+                    <input v-else class="col-span-4 mb-2" :type="field.type" v-model="field_data[field.label]">
                 </div>
             </div>
             <div class="col-start-9 col-span-1" v-if="totalScore >= 0">{{ (totalScore / totalPossibleScore * 100).toFixed(0) }}%</div>
@@ -107,9 +117,10 @@ export default {
         usable_fields: function () {
             let result = [];
             for (const [key, value] of Object.entries(this.fields)) {
+                let type = (value.type === 'string') ? 'text' : value.type;
                 result.push({
                     label: key,
-                    type: 'text'
+                    type: type
                 })
             }
             return result;

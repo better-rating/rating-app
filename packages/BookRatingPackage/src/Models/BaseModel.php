@@ -15,6 +15,8 @@ class BaseModel extends Model
 
     protected $guarded = ['id'];
 
+    public $slugify = 'title';
+
     //=== RELATIONSHIPS ===//
     public function rating()
     {
@@ -30,7 +32,7 @@ class BaseModel extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom($this->slugify)
             ->saveSlugsTo('slug');
     }
 

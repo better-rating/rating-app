@@ -44,6 +44,7 @@ class BookController extends Controller
             $create[$columns[$col]['column']] = $datum;
         }
 
+
         $book = Book::create($create);
 
         echo json_encode(['success' => true, 'media' => $book]);
@@ -56,6 +57,7 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
+        dd($book);
         return default_view('edit', compact('book'));
     }
 

@@ -54,9 +54,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('profile', function ($value, $route) {
             return $this->getModel(Profile::class, $value, 'hashid');
         });
-        Route::bind('book', function ($value, $route) {
-            return $this->getModel(Book::class, $value, 'slug');
-        });
         Route::bind('movie', function ($value, $route) {
             return $this->getModel(Movie::class, $value, 'slug');
         });
@@ -133,7 +130,5 @@ class RouteServiceProvider extends ServiceProvider
         if ($type === 'id') {
             return $modelInstance->findOrFail($routeKey);
         }
-
-
     }
 }

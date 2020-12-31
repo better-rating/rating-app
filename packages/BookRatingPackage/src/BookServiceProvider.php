@@ -2,6 +2,8 @@
 
 namespace BetterRating\BookRatingPackage;
 
+use BetterRating\BookRatingPackage\Models\Book;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class BookServiceProvider extends ServiceProvider
@@ -25,10 +27,30 @@ class BookServiceProvider extends ServiceProvider
             // Export the migration
             if (!class_exists('CreateBooksTable')) {
                 $this->publishes([
-                    __DIR__ . '/../database/migrations/create_books_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_posts_table.php'),
+                    __DIR__ . '/../database/migrations/create_books_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_posts_table.php'),
                     // you can add any number of migrations here
                 ], 'migrations');
             }
+        }
+
+        Route::bind('book', function ($value, $route) {
+            return $this->getModel(Book::class, $value, 'slug');
+        });
+    }
+
+    private function getModel($model, $routeKey, $type)
+    {
+        $modelInstance = resolve($model);
+
+        if ($type === 'hashid') {
+            $id = Hashids::connection($model)->decode($routeKey)[0] ?? null;
+            return $modelInstance->findOrFail($id);
+        }
+        if ($type === 'slug') {
+            return $modelInstance->where('slug', $routeKey)->firstOrFail();
+        }
+        if ($type === 'id') {
+            return $modelInstance->findOrFail($routeKey);
         }
     }
 }

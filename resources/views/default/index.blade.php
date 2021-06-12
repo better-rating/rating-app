@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container mx-auto auto-rows-min">
+        <div class="grid my-4 justify-items-end">
+            <a class="btn btn-yellow" href="{{ route(config($config_name.'.name_plural').'.create') }}">Add {{ config($config_name.'.name') }}</a>
+        </div>
+
         <div class="grid grid-cols-{{ count($display_columns) + 2 }} auto-rows-min">
             @foreach($display_columns as $label => $attribute)
                 <div class="font-bold col-span-1 h-8 pl-2 text-white bg-gray-700">{{ $label }}</div>

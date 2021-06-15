@@ -2,6 +2,7 @@
 
 namespace BetterRating\BookRatingPackage;
 
+use BetterRating\BookRatingPackage\Console\Commands\Install;
 use BetterRating\BookRatingPackage\Models\Book;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -27,10 +28,14 @@ class BookServiceProvider extends ServiceProvider
             // Export the migration
             if (!class_exists('CreateBooksTable')) {
                 $this->publishes([
-                    __DIR__ . '/../database/migrations/create_books_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_posts_table.php'),
+                    __DIR__ . '/../database/migrations/create_books_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_books_table.php'),
                     // you can add any number of migrations here
                 ], 'migrations');
             }
+
+        $this->commands([
+            Install::class,
+        ]);
         }
 
         Route::bind('book', function ($value, $route) {

@@ -3,6 +3,7 @@
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('shows', 'ShowController');
     Route::resource('seasons', 'SeasonController');
     Route::resource('episodes', 'EpisodeController');
+
+    // User
+    Route::get('/dashboard', [UserController::class, 'dashboard']);
 });
 
 Route::get('/book/{book}', [MediaController::class, 'book']);
